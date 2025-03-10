@@ -554,7 +554,7 @@
             left: 20px;
             cursor: pointer;
             font-size: 30px;
-            color: rgb(0, 0, 0);
+            color: #ffc107;
             /* Toggle button color */
             z-index: 1000;
         }
@@ -599,7 +599,7 @@
                alt=""> -->
             <div class="ms-2">
                 <h5 class="fs-6 mb-0">
-                    <a class="text-decoration-none" href="#">{{username}}</a>
+                    <a class="text-decoration-none" href="#">{{name}}</a>
                 </h5>
                 <p class="mt-1 mb-0">Nice to have you here!</p>
             </div>
@@ -612,7 +612,7 @@
 
         <ul class="categories list-unstyled">
             <li class="">
-                <i class="uil-folder"></i><a href="{{ url_for('dashboard') }}"> Dashboard</a>
+                <i class="uil-folder"></i><a href="{{ url_for('dashboard') }}"> BMI calculator</a>
                 <!-- <ul class="sidebar-dropdown list-unstyled">
               <li><a href="#">Lorem ipsum</a></li>
               <li><a href="#">ipsum dolor</a></li>
@@ -654,9 +654,7 @@
                                 Settings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="#">My account</a>
-                                </li>
+                                
                                 <!-- <li><a class="dropdown-item" href="#">My inbox</a>
                     </li> -->
                                 <li><a class="dropdown-item" href="#">Help</a>

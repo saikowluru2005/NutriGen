@@ -57,7 +57,7 @@
         body {
             height: 100vh;
             margin: 0;
-            background-image: url('./Asserts/Untitled design.png');
+            background-image: url('{{ url_for('static', filename='asserts/Untitled design.png') }}');
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -182,7 +182,7 @@
                 <p>Forgot password?</p>
                 <button class="button">
                     <h3>Login</h3>
-                    <img src="bibimbap.png" alt="Bibimbap">
+                    <img src="{{ url_for('static', filename='asserts/bibimbap.png') }}" alt="Bibimbap">
                 </button>
             </form>
             <a href="{{ url_for('index') }}" style=" text-decoration:none;">
@@ -190,7 +190,7 @@
             </a>
         </div>
         <div class="image-container">
-            <img src="BG.png" alt="Background Image">
+            <img src="{{ url_for('static', filename='asserts/BG.png') }}" alt="Background Image">
         </div>
     </div>
 

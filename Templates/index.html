@@ -36,11 +36,11 @@
 </head>
 
 <body>
-    <div class="container-fluid" style="display: flex; background-image: url('./Asserts/Untitled\ design.png');">
+    <div class="container-fluid" style="display: flex; background-image: url('../static/asserts/Untitled design.png');">
         <div class="container" style="height:max-content;width: 70%;padding: 35px;">
             <div class="nav-bar" style="display: flex;justify-content: space-between;">
                 <h2>HealthGen</h2>
-                <STRONG>
+                <!-- <STRONG>
                     <P>MENU</P>
                 </STRONG>
                 <STRONG>
@@ -48,7 +48,7 @@
                 </STRONG>
                 <STRONG>
                     <P>CHAT NOW</P>
-                </STRONG>
+                </STRONG> -->
 
             </div>
             <DIV class="MAIN" style="display: flex;margin-top: 10%;">
@@ -61,7 +61,7 @@
                 <div style="width: 40%; height: 15%; margin-top: 10%;">
                     <button class="button"
                         style="width: 100%; height: 100%; border-radius: 25px; padding-top: 1%; padding-bottom: 1%; display: flex; justify-content: space-between; align-items: center; border: none; cursor: pointer;">
-                        <h3 style="margin: 0; flex-grow: 1; text-align: center;">Login</h3>
+                        <h3 style="margin: 0; flex-grow: 1; text-align: center;">JOIN NOW</h3>
                         <div style="margin-right: 1%;"><img
                                 src="{{ url_for('static', filename='asserts/bibimbap.png') }}" alt="Bibimbap"
                                 height="40px">
@@ -70,7 +70,7 @@
                 </div>
             </form>
             <div class="reverted" style="position: absolute; bottom:0% ;left: 0%; transform: translate(0%, 0%);">
-                <img src="edited.png" alt="Edited" height="150px">
+                <img src="{{ url_for('static', filename='asserts/edited.png') }}" alt="Edited" height="150px">
             </div>
 
         </div>
