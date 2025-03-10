@@ -820,16 +820,28 @@
 
                 <h2 style="text-align: center; color:white">Analysis Result:</h2>
 
-                <pre id="jsonResponse"
-                    style="font-family: Arial, Helvetica, sans-serif; color:white">{{ response | safe }}</pre>
+                <pre id="jsonResponse" class="output" style="font-family: Arial, Helvetica, sans-serif; color:white;">{{ response | safe }}</pre>
 
                 {% endif %}
+                <button onclick="copyToClipboard()" style="border:none; padding:10px;font-size:small; border-radius:50px">Copy to Clipboard</button>
+
 
             </div>
 
 
 
             <script>
+                function copyToClipboard() {
+                    const text = document.querySelector('.output').innerText;
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+        
+                }
+
 
                 document.addEventListener('DOMContentLoaded', function () {
 
