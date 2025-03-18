@@ -545,11 +545,7 @@
     <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left" id="show-side-navigation1">
         <i class="uil-bars close-aside d-md-none d-lg-none" data-close="show-side-navigation1"></i>
         <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
-            <!-- <img
-           class="rounded-pill img-fluid"
-           width="65"
-           src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/021036514417/media/23148907008/medium/1501685726/enhance"
-           alt=""> -->
+            
             <div class="ms-2">
                 <h5 class="fs-6 mb-0">
                     <a class="text-decoration-none" href="#">{{ name }}</a>
@@ -563,17 +559,12 @@
             <i class="fa fa-search position-absolute d-block fs-6"></i>
         </div>
 
-
-        <!-- <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul> -->
         <ul class="categories list-unstyled">
             <li class="">
                 <i class="uil-folder"></i><a href="{{ url_for('dashboard') }}"> BMI calaculator</a>
+            </li>
+            <li class="">
+                <i class="uil-folder"></i><a href="{{ url_for('knowyourfood') }}">Know your food</a>
             </li>
             <li class="">
                 <i class="uil-folder"></i><a href="{{ url_for('macro_micro') }}">Micros & Macros</a>
@@ -608,11 +599,6 @@
                                 Settings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!-- <li>
-                                    <a class="dropdown-item" href="#">My account</a>
-                                </li> -->
-                                <!-- <li><a class="dropdown-item" href="#">My inbox</a>
-                    </li> -->
                                 <li><a class="dropdown-item" href="#">Help</a>
                                 </li>
                                 <li>
@@ -621,12 +607,7 @@
                                 <li><a class="dropdown-item" href="{{ url_for('logout')}}">Log out</a></li>
                             </ul>
                         </li>
-                        <!-- <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="uil-comments-alt"></i><span>23</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="uil-bell"></i><span>98</span></a>
-                </li> -->
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i data-show="show-side-navigation1" class="uil-bars show-side-btn"></i>
@@ -641,7 +622,7 @@
             <div class="welcome">
                 <div class="content rounded-3 p-3">
                     <h1 class="fs-3">Welcome to NutriGen</h1>
-                    <p class="mb-0">Hello {{ name }}, welcome to your awesome dashboard!</p>
+                    <p class="mb-0">Hello {{ name }}, welcome to your dashboard!</p>
                 </div>
             </div>
 
@@ -650,58 +631,29 @@
                 <div class="row" style="justify-content: center;">
                     <div class="col-lg-4">
                         <div class="box d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3" style="display: flex;flex-direction: column;">
-                            <!-- <i class="uil-envelope-shield fs-2 text-center bg-primary rounded-circle"></i> -->
+                           
                             <div class="ms-3">
                                 <div class="d-flex align-items-center" style="flex-direction: column;">
-                                    <!-- <h3 class="mb-0">1,245</h3> <span class="d-block ms-2">Calories Intake</span> -->
                                     <input type="number" class="form-control w-100 border-0 custom-placeholder" name="height" id="height" placeholder="Height in cm" style="background-color: #ffff;margin:5px">
                                     <input type="number" class="form-control w-100 border-0 custom-placeholder" name="weight" id="weight" placeholder="Weight in kgs" style="background-color: #ffff;margin:5px">
                                     <button class="btn btn-primary" style="margin:5px" onclick="bmi()">Calculate</button>
                                 </div>
                                 
-                                <!-- <p class="fs-normal mb-0">Lorem ipsum dolor sit amet</p> -->
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-4">
-                        <div class="box d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3">
-                            <i class="uil-file fs-2 text-center bg-danger rounded-circle"></i>
-                            <div class="ms-3">
-                                <div class="d-flex align-items-center">
-                                    <h3 class="mb-0">1,254</h3> <span class="d-block ms-2">Calories burnt</span>
-                                </div>
-                                <p class="fs-normal mb-0">Lorem ipsum dolor sit amet</p>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-lg-4">
-                        <div class="box d-flex rounded-2 align-items-center p-3">
-                            <i class="uil-users-alt fs-2 text-center bg-success rounded-circle"></i>
-                            <div class="ms-3">
-                                <div class="d-flex align-items-center">
-                                    <h3 class="mb-0">80 Kgs</h3> <span class="d-block ms-2">Present Weight</span>
-                                </div>
-                                <p class="fs-normal mb-0">Lorem ipsum dolor sit amet</p>
-                            </div>
-                        </div>
-                    </div> -->
+                    
                 </div>
             </section>
 
             <section class="charts mt-4" style="display: flex;align-items:center;justify-content:center">
                 <div class="row">
-                    <!-- <div class="col-lg-6"> -->
+                   
                         <div class="chart-container rounded-2 p-3" id="bgc" style="background-color:#ffff" >
-                            <div id="bmi-result" style="height: 80px; display:flex;align-items:center;justify-content:center;color:white;"></div>
-                                <!-- <canvas id="bmiChart"></canvas> -->
-                        <!-- </div> -->
+                            <div id="bmi-result" style="height: 80px; display:flex;align-items:center;justify-content:center;color:white;flex-direction:column;padding:5px"></div>
+                               
                     </div>
-                    <!-- <div class="col-lg-6">
-                        <div class="chart-container rounded-2 p-3">
-                            <h3 class="fs-6 mb-3">Chart title number two</h3>
-                            <canvas id="myChart2"></canvas>
-                        </div>
-                    </div> -->
+                    
                 </div>
             </section>
             <script>
@@ -787,25 +739,50 @@
                     const height = parseFloat(document.getElementById('height').value) / 100;
                     const weight = parseFloat(document.getElementById('weight').value);
                     const bgc = document.getElementById('bgc');
-            
+                
                     bgc.style.backgroundColor = 'black';
                     if (!height || !weight || height <= 0 || weight <= 0) {
                         alert("Please enter valid values for height and weight");
                         return;
                     }
-            
+                
                     const bmi = weight / (height * height);
                     document.getElementById('bmi-result').innerText = `Your BMI: ${bmi.toFixed(2)} (${getBMICategory(bmi)})`;
-            
-                    updateGaugeChart(bmi);
+                
+                    // Send BMI to Flask and get facts
+                    fetch('/get_bmi_facts', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bmi: bmi.toFixed(2) })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            displayFacts(data.facts);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Failed to get BMI facts');
+                    });
                 }
-            
+                
+                function displayFacts(facts) {
+                    const factsContainer = document.getElementById('bmi-result');
+                    factsContainer.innerHTML += `<br><br><p style="color:white; padding-top:10px;">${facts}</p>`;
+                }
+                
                 function getBMICategory(bmi) {
                     if (bmi < 18.5) return "Underweight";
                     if (bmi < 24.9) return "Normal";
                     if (bmi < 29.9) return "Overweight";
                     return "Obese";
                 }
+            
             
                 function updateGaugeChart(bmi) {
                     const ctx = document.getElementById('bmiChart').getContext('2d');

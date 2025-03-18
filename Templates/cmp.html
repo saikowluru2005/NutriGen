@@ -627,6 +627,9 @@
                 <i class="uil-folder"></i><a href="{{ url_for('macro_micro') }}">Micros & Macros</a>
             </li>
             <li class="">
+                <i class="uil-folder"></i><a href="{{ url_for('knowyourfood') }}">Know your food</a>
+            </li>
+            <li class="">
                 <i class="uil-folder"></i><a href="{{url_for('letsmakerecipe')}}">Let's make a recipe</a>
             </li>
             <li class="">
@@ -794,6 +797,11 @@
                                 <option value="super_active">Super active (Very hard exercise/physical job)</option>
                             </select>
                         </div>
+			
+			<div class="form-group col-md-6">
+                                <label for="height">How many days you want: </label>
+                                <input type="number" class="form-control" id="days" name="days" required />
+                            </div>
 
                         <!-- Additional Notes -->
                         <div class="form-group">
