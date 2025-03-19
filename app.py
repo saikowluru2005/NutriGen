@@ -5,8 +5,12 @@ from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import google.generativeai as ai
+from PIL import Image
+import io
+import os
+from dotenv import load_dotenv
 
-load_dotenv("D:/Python/Nascom/.env")
+load_dotenv("D:/Nutrigen/.env")
 
 
 app = Flask(__name__)
@@ -215,17 +219,53 @@ def chatwithus():
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
+# @app.route('/ask', methods=['POST'])
+# def ask():
+#     user_input = request.json.get('message')
+
+#     try:
+#         response = model.generate_content(user_input)
+#         reply = response.text
+#     except Exception as e:
+#         reply = f"Error: {str(e)}"
+    
+#     return jsonify({"reply": reply})
+
+
+@app.route('/help')
+def help():
+    return render_template('help.html')
+
 @app.route('/ask', methods=['POST'])
 def ask():
     user_input = request.json.get('message')
 
+    classification_prompt = f"""
+    Classify the following input as 'related' or 'not related' to nutrition, diet, or health only:
+
+    Input: {user_input}
+
+    If the user says 'hi', respond with 'related'.
+    Respond only with 'related' or 'not related'.
+    If related, summarize the topic in 2-5 lines.
+    """
+
     try:
-        response = model.generate_content(user_input)
-        reply = response.text
+        classification_response = model.generate_content(classification_prompt)
+        classification = classification_response.text.strip().lower()
+
+        if "related" in classification:
+            response = model.generate_content(user_input)
+            reply = response.text.split(".")[0]  # Take only the first full sentence
+        else:
+            reply = "This is not related to me. I can only answer questions about nutrition, diet, and health."
+
     except Exception as e:
         reply = f"Error: {str(e)}"
-    
+
     return jsonify({"reply": reply})
+
+
 
 @app.route('/custommeal',methods=['GET','POST'])
 @login_required
@@ -283,6 +323,41 @@ def custommeal():
     response.headers['Expires'] = '0'
     return response
 
+@app.route('/upload1')
+def upload1():
+    return render_template('img.html')
+
+
+def get_image_description(image):
+    img_byte_arr = io.BytesIO()
+    image.save(img_byte_arr, format="PNG")
+    img_bytes = img_byte_arr.getvalue()
+
+    response = model.generate_content([
+        {
+            "mime_type": "image/png",
+            "data": img_bytes
+        },
+        "Give the name of food items present in image and also give micros, macros in that food item in 5-8 lines without bolding any word if the uploaded image in not related to food just give reply as this is not a food item"
+    ])
+
+    return response.text
+
+
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    if "image" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    file = request.files["image"]
+    
+    try:
+        image = Image.open(file)
+        description = get_image_description(image)
+        return jsonify({"description": description})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     with app.app_context():
