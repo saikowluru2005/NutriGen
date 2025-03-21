@@ -221,12 +221,19 @@
             --navbar-bg-color: #131314;
             --sidebar-bg-color: #000000;
             --sidebar-width: 250px;
+            --primary-color: #2ecc71;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
         }
 
         body {
@@ -430,9 +437,11 @@
         }
         .container {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
             width: 50%;
         }
@@ -444,23 +453,64 @@
         }
         button {
             margin-top: 10px;
-            padding: 10px;
-            background: #007bff;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
         }
         button:hover {
-            background: #0056b3;
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        button:hover::before {
+            left: 100%;
         }
         #output {
             margin-top: 20px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            margin: 1rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         img {
             margin-top: 10px;
             max-width: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px var(--shadow-color);
         }
         .statis .box i {
             position: absolute;
@@ -553,7 +603,6 @@
         .navbar .navbar-nav>li>a {
             float: left !important;
         }
-
         
 
         .navbar .navbar-nav>li>a>span:not(.caret) {
@@ -612,16 +661,22 @@
 
         ::-webkit-scrollbar {
             background: transparent;
-            width: 5px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background-color: #3c3f58;
+            background: var(--primary-color);
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(0, 0, 0, 0.3);
+            background: var(--secondary-color);
         }
 
         #show-side-navigation1 {
@@ -897,14 +952,14 @@
             let outputDiv = document.getElementById("output");
             
             if (!fileInput.files.length) {
-                outputDiv.innerHTML = "<p style='color:red;'>Please select an image.</p>";
+                outputDiv.innerHTML = "<p style='color:var(--accent-color);'>Please select an image.</p>";
                 return;
             }
             
             let formData = new FormData();
             formData.append("image", fileInput.files[0]);
             
-            outputDiv.innerHTML = "<p>Processing...</p>";
+            outputDiv.innerHTML = "<div class='processing'></div><p>Processing your image...</p>";
             
             fetch("/upload", {
                 method: "POST",
@@ -913,13 +968,16 @@
             .then(response => response.json())
             .then(data => {
                 if (data.description) {
-                    outputDiv.innerHTML = `<h3>About your plate:</h3><p style="align-items: center;justify-content: center; text-align:justify; text-justify:inter-word">${data.description}</p>`;
+                    outputDiv.innerHTML = `
+                        <h3 style='color:var(--primary-color);'>About your plate:</h3>
+                        <p style='line-height:1.6;'>${data.description}</p>
+                    `;
                 } else {
-                    outputDiv.innerHTML = `<p style='color:red;'>Error: ${data.error}</p>`;
+                    outputDiv.innerHTML = `<p style='color:var(--accent-color);'>Error: ${data.error}</p>`;
                 }
             })
             .catch(error => {
-                outputDiv.innerHTML = `<p style='color:red;'>Error: ${error}</p>`;
+                outputDiv.innerHTML = `<p style='color:var(--accent-color);'>Error: ${error}</p>`;
             });
         }
             

@@ -255,13 +255,46 @@ def ask():
         classification = classification_response.text.strip().lower()
 
         if "related" in classification:
-            response = model.generate_content(user_input)
-            reply = response.text.split(".")[0]  # Take only the first full sentence
+            # Check if the user is asking for a description or related words
+            description_keywords = ["describe", "explain", "what is", "tell me about", "related to", "similar to", "like", "examples of"]
+            is_description_request = any(keyword in user_input.lower() for keyword in description_keywords)
+
+            if is_description_request:
+                # Modified prompt for description requests
+                response_prompt = f"""
+                Please provide a clear, informative paragraph (3-4 sentences) about the following nutrition, diet, or health topic.
+                Your response should be:
+                1. Well-structured and easy to understand
+                2. Include key information and examples
+                3. Use natural, conversational language
+                4. Be informative but concise
+
+                Topic: {user_input}
+                """
+            else:
+                # Original prompt for regular questions
+                response_prompt = f"""
+                Please provide a clear, concise response to the following question about nutrition, diet, or health.
+                Your response should be:
+                1. A complete sentence
+                2. No more than 2 lines
+                3. Direct and informative
+                4. No bullet points or lists
+
+                Question: {user_input}
+                """
+
+            response = model.generate_content(response_prompt)
+            reply = response.text.strip()
+            
+            # Ensure the response ends with proper punctuation
+            if not reply.endswith(('.', '!', '?')):
+                reply += '.'
         else:
-            reply = "This is not related to me. I can only answer questions about nutrition, diet, and health."
+            reply = "I can only answer questions about nutrition, diet, and health. Please ask a related question."
 
     except Exception as e:
-        reply = f"Error: {str(e)}"
+        reply = "I apologize, but I encountered an error. Please try asking your question again."
 
     return jsonify({"reply": reply})
 
