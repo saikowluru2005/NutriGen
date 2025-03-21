@@ -701,18 +701,16 @@
                     <div class="form-heading">User Profile Form</div>
                     <form method="POST">
                         <div class="form-row">
-
                             <!-- Age -->
                             <div class="form-group col-md-6">
                                 <label for="age">Age:</label>
-                                <input type="number" class="form-control" id="age" name="age" required />
+                                <input type="number" class="form-control" id="age" name="age" value="{{ form_data.get('age', '') }}" required />
                             </div>
-
 
                             <!-- Height -->
                             <div class="form-group col-md-6">
                                 <label for="height">Height (cm):</label>
-                                <input type="number" class="form-control" id="height" name="height" required />
+                                <input type="number" class="form-control" id="height" name="height" value="{{ form_data.get('height', '') }}" required />
                             </div>
                         </div>
 
@@ -720,27 +718,27 @@
                             <!-- Weight -->
                             <div class="form-group col-md-6">
                                 <label for="weight">Weight (kg):</label>
-                                <input type="number" class="form-control" id="weight" name="weight" required />
+                                <input type="number" class="form-control" id="weight" name="weight" value="{{ form_data.get('weight', '') }}" required />
                             </div>
 
                             <!-- Target Weight -->
-                            <!-- <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="target_weight">Target Weight (kg):</label>
-                                <input type="number" class="form-control" id="target_weight" name="target_weight" required />
-                            </div> -->
+                                <input type="number" class="form-control" id="target_weight" name="target_weight" value="{{ form_data.get('target_weight', '') }}" required />
+                            </div>
                         </div>
 
                         <!-- Diet Preference -->
                         <div class="form-group">
                             <label>Diet Preference:</label><br>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="veg" name="diet" value="Vegetarian"
-                                    required />
+                                <input type="radio" class="form-check-input" id="veg" name="diet" value="Vegetarian" 
+                                    {% if form_data.get('diet') == 'Vegetarian' %}checked{% endif %} required />
                                 <label class="form-check-label" for="veg">Vegetarian</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="non_veg" name="diet"
-                                    value="Non-Vegetarian" required />
+                                <input type="radio" class="form-check-input" id="non_veg" name="diet" value="Non-Vegetarian"
+                                    {% if form_data.get('diet') == 'Non-Vegetarian' %}checked{% endif %} required />
                                 <label class="form-check-label" for="non_veg">Non-Vegetarian</label>
                             </div>
                         </div>
@@ -748,8 +746,8 @@
                         <!-- Preferred Vegetables -->
                         <div class="form-group">
                             <label for="preferred_vegetables">Preferred Vegetables:</label>
-                            <input type="text" class="form-control" id="preferred_vegetables"
-                                name="preferred_vegetables" placeholder="If none, write 'No preference'" />
+                            <input type="text" class="form-control" id="preferred_vegetables" name="preferred_vegetables" 
+                                value="{{ form_data.get('preferred_vegetables', '') }}" placeholder="If none, write 'No preference'" />
                         </div>
 
                         <!-- Macronutrient Preferences -->
@@ -757,24 +755,25 @@
                             <label>Specific Macronutrient Preferences:</label>
                             <div class="form-row">
                                 <div class="col">
-                                    <input type="text" class="form-control" name="carbs"
+                                    <input type="text" class="form-control" name="carbs" value="{{ form_data.get('carbs', '') }}"
                                         placeholder="Carbohydrates (if any)" />
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" name="proteins"
+                                    <input type="text" class="form-control" name="proteins" value="{{ form_data.get('proteins', '') }}"
                                         placeholder="Proteins (if any)" />
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" name="fats" placeholder="Fats (if any)" />
+                                    <input type="text" class="form-control" name="fats" value="{{ form_data.get('fats', '') }}" 
+                                        placeholder="Fats (if any)" />
                                 </div>
                             </div>
                             <div class="form-row mt-2">
                                 <div class="col">
-                                    <input type="text" class="form-control" name="vitamins"
+                                    <input type="text" class="form-control" name="vitamins" value="{{ form_data.get('vitamins', '') }}"
                                         placeholder="Vitamins (if any)" />
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" name="minerals"
+                                    <input type="text" class="form-control" name="minerals" value="{{ form_data.get('minerals', '') }}"
                                         placeholder="Minerals (if any)" />
                                 </div>
                             </div>
@@ -783,34 +782,33 @@
                         <!-- Allergies -->
                         <div class="form-group">
                             <label for="allergies">Allergies:</label>
-                            <input type="text" class="form-control" id="allergies" name="allergies"
-                                placeholder="If none, write 'No'" />
+                            <input type="text" class="form-control" id="allergies" name="allergies" 
+                                value="{{ form_data.get('allergies', '') }}" placeholder="If none, write 'No'" />
                         </div>
 
                         <!-- Activity Level -->
                         <div class="form-group">
                             <label for="activity_level">Daily Activity Level:</label>
                             <select class="form-control" id="activity_level" name="activity_level" required>
-                                <option value="" disabled selected>Select your activity level</option>
-                                <option value="sedentary">Sedentary (Little to no exercise)</option>
-                                <option value="lightly_active">Lightly active (Light exercise 1–3 days/week)</option>
-                                <option value="moderately_active">Moderately active (Moderate exercise 3–5 days/week)
-                                </option>
-                                <option value="very_active">Very active (Hard exercise 6–7 days/week)</option>
-                                <option value="super_active">Super active (Very hard exercise/physical job)</option>
+                                <option value="" disabled {% if not form_data.get('activity_level') %}selected{% endif %}>Select your activity level</option>
+                                <option value="sedentary" {% if form_data.get('activity_level') == 'sedentary' %}selected{% endif %}>Sedentary (Little to no exercise)</option>
+                                <option value="lightly_active" {% if form_data.get('activity_level') == 'lightly_active' %}selected{% endif %}>Lightly active (Light exercise 1–3 days/week)</option>
+                                <option value="moderately_active" {% if form_data.get('activity_level') == 'moderately_active' %}selected{% endif %}>Moderately active (Moderate exercise 3–5 days/week)</option>
+                                <option value="very_active" {% if form_data.get('activity_level') == 'very_active' %}selected{% endif %}>Very active (Hard exercise 6–7 days/week)</option>
+                                <option value="super_active" {% if form_data.get('activity_level') == 'super_active' %}selected{% endif %}>Super active (Very hard exercise/physical job)</option>
                             </select>
                         </div>
-			
-			<div class="form-group col-md-6">
-                                <label for="height">How many days you want: </label>
-                                <input type="number" class="form-control" id="days" name="days" required />
-                            </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="days">How many days you want: </label>
+                            <input type="number" class="form-control" id="days" name="days" value="{{ form_data.get('days', '') }}" required />
+                        </div>
 
                         <!-- Additional Notes -->
                         <div class="form-group">
                             <label for="notes">Additional Notes:</label>
-                            <textarea class="form-control" id="notes" name="notes" rows="4"
-                                placeholder="Write any additional information here..."></textarea>
+                            <textarea class="form-control" id="notes" name="notes" rows="4" 
+                                placeholder="Write any additional information here...">{{ form_data.get('notes', '') }}</textarea>
                         </div>
 
                         <!-- Submit Button -->

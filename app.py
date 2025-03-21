@@ -272,42 +272,46 @@ def ask():
 def custommeal():
     user = User.query.get(current_user.id)
     response = ""
+    form_data = {}
+    
     if request.method == "POST":
-        age= request.form.get("age")
-        height = request.form.get("height")
-        weight = request.form.get("weight")
-        target_weight = request.form.get("target_weight")
-        diet = request.form.get("diet")
-        preferred_vegetables = request.form.get("preferred_vegetables", "No preference")
-        carbs = request.form.get("carbs", "No preference")
-        proteins = request.form.get("proteins", "No preference")
-        fats = request.form.get("fats", "No preference")
-        vitamins = request.form.get("vitamins", "No preference")
-        minerals = request.form.get("minerals", "No preference")
-        allergies = request.form.get("allergies", "No")
-        activity_level = request.form.get("activity_level")
-        days = request.form.get("days")
-        notes = request.form.get("notes", "")
+        form_data = {
+            "age": request.form.get("age"),
+            "height": request.form.get("height"),
+            "weight": request.form.get("weight"),
+            "target_weight": request.form.get("target_weight"),
+            "diet": request.form.get("diet"),
+            "preferred_vegetables": request.form.get("preferred_vegetables", "No preference"),
+            "carbs": request.form.get("carbs", "No preference"),
+            "proteins": request.form.get("proteins", "No preference"),
+            "fats": request.form.get("fats", "No preference"),
+            "vitamins": request.form.get("vitamins", "No preference"),
+            "minerals": request.form.get("minerals", "No preference"),
+            "allergies": request.form.get("allergies", "No"),
+            "activity_level": request.form.get("activity_level"),
+            "days": request.form.get("days"),
+            "notes": request.form.get("notes", "")
+        }
 
         prompt = f"""
-        Create a personalized meal plan , a {age}-year-old person with a height of {height} cm and a weight of {weight} kg. 
-        Goal is to reach {target_weight} kg.
+        Create a personalized meal plan , a {form_data['age']}-year-old person with a height of {form_data['height']} cm and a weight of {form_data['weight']} kg. 
+        Goal is to reach {form_data['target_weight']} kg.
         
-        Diet preference: {diet}
-        Preferred vegetables: {preferred_vegetables}
+        Diet preference: {form_data['diet']}
+        Preferred vegetables: {form_data['preferred_vegetables']}
         Macronutrient preferences:
-        - Carbohydrates: {carbs}
-        - Proteins: {proteins}
-        - Fats: {fats}
+        - Carbohydrates: {form_data['carbs']}
+        - Proteins: {form_data['proteins']}
+        - Fats: {form_data['fats']}
         Micronutrient preferences:
-        - Vitamins: {vitamins}
-        - Minerals: {minerals}
-        Allergies: {allergies}
-        Activity level: {activity_level}
+        - Vitamins: {form_data['vitamins']}
+        - Minerals: {form_data['minerals']}
+        Allergies: {form_data['allergies']}
+        Activity level: {form_data['activity_level']}
         
-        Additional notes: {notes}
+        Additional notes: {form_data['notes']}
 
-        Provide a detailed {days} days meal plan seperated by each day in 200 words with recipies, in point-wise format, including meals for breakfast, lunch, and dinner.
+        Provide a detailed {form_data['days']} days meal plan seperated by each day in 200 words with recipies, in point-wise format, including meals for breakfast, lunch, and dinner.
         Don;t bold any word
         """
 
@@ -317,7 +321,11 @@ def custommeal():
         except Exception as e:
             response = f"Error: {e}"
 
-    response = make_response(render_template('cmp.html', username=current_user.username,name=user.name,response=response))
+    response = make_response(render_template('cmp.html', 
+                                          username=current_user.username,
+                                          name=user.name,
+                                          response=response,
+                                          form_data=form_data))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
