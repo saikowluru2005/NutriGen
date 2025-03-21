@@ -338,7 +338,7 @@ def get_image_description(image):
             "mime_type": "image/png",
             "data": img_bytes
         },
-        "Give the name of food items present in image and also give micros, macros in that food item in 5-8 lines without bolding any word if the uploaded image in not related to food just give reply as this is not a food item"
+        "Give the name of food items present in image and also give approximate values of micros, macros in that food item in 5-8 lines without bolding any word if the uploaded image in not related to food just give reply as this is not a food item"
     ])
 
     return response.text

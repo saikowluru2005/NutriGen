@@ -687,6 +687,12 @@
         .custom-placeholder::placeholder {
             color: #ffff; /* Change this to your desired color */
         }
+        img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -789,8 +795,10 @@
                 <input type="file" id="imageInput" accept="image/png, image/jpeg" onchange="previewImage()" style="margin-top: 20px;">
                 <button onclick="uploadImage()">Generate Description</button>
                 </div>
-                <div id="output"></div>
-                <img id="uploadedImage" style="display: none; align-items: center;justify-content: center;" />
+                <div style="display: flex;">
+                <div id="output" style="margin-right: 15px;"></div>
+                <img id="uploadedImage" style="display: none; align-items: center;justify-content: center; height: 155px;max-width: 180px;" />
+                </div>
             </div>
             
             <script>
